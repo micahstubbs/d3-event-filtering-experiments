@@ -9,6 +9,13 @@ function zoomFiltering(divId) {
     .append('svg')
     .attr('width', width)
     .attr('height', height);
+
+  // style svg
+  svg
+    .style('border', '1px solid')
+    .style('font', '13px sans-serif')
+    .style('text-anchor', 'middle');
+
   const g = svg.append('g');
 
   // create 15 circles
@@ -27,6 +34,10 @@ function zoomFiltering(divId) {
     .attr('cx', d => d.x)
     .attr('cy', d => d.y)
     .attr('r', d => d.r)
+    .style('fill', 'red')
+    .style('opacity', 0.2)
+    .style('stroke', 'black')
+    .style('stroke-width', '1px')
     .classed('no-zoom', true);
 
   const zoom = d3.zoom()
