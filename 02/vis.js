@@ -6,12 +6,12 @@ function zoomFiltering(divId) {
   const maxR = 30;
 
   const svg = d3.select(divId)
-                .append('svg')
-                .attr('width', width)
-                .attr('height', height);
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
   const g = svg.append('g');
 
-    // create 15 circles
+  // create 15 circles
   const numCircles = 55;
   const circles = [];
   for (let i = 0; i < numCircles; i += 1) {
@@ -21,27 +21,27 @@ function zoomFiltering(divId) {
   }
 
   g.selectAll('circle')
-        .data(circles)
-        .enter()
-        .append('circle')
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y)
-        .attr('r', d => d.r)
-        .classed('no-zoom', true);
+    .data(circles)
+    .enter()
+    .append('circle')
+    .attr('cx', d => d.x)
+    .attr('cy', d => d.y)
+    .attr('r', d => d.r)
+    .classed('no-zoom', true);
 
   const zoom = d3.zoom()
-                 .filter(() => !d3.event.path[0].classList.contains('no-zoom'))
-                 .on('zoom', (d) => { g.attr('transform', d3.event.transform); });
+    .filter(() => !d3.event.path[0].classList.contains('no-zoom'))
+    .on('zoom', (d) => { g.attr('transform', d3.event.transform); });
 
   const texts = ["The red circles don't allow scroll-wheel zooming and",
     'drag-based panning'];
   svg.selectAll('text')
-       .data(texts)
-       .enter()
-       .append('text')
-       .attr('x', 200)
-       .attr('y', (d, i) => 20 + (i * 20))
-       .text(d => d);
+    .data(texts)
+    .enter()
+    .append('text')
+    .attr('x', 200)
+    .attr('y', (d, i) => 20 + (i * 20))
+    .text(d => d);
 
   svg.call(zoom);
 }
