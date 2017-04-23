@@ -54,6 +54,9 @@ function zoomFiltering(divId) {
     .append('text')
     .attr('x', 200)
     .attr('y', (d, i) => 20 + (i * 20))
+    .style('-webkit-user-select', 'none') /* Chrome/Safari */
+    .style('-moz-user-select', 'none') /* Firefox */
+    .style('-ms-user-select', 'none') /* IE10+ */
     .text(d => d);
 
   svg.call(zoom);
