@@ -33,8 +33,10 @@ function zoomFiltering(divId) {
     .filter(() => !d3.event.path[0].classList.contains('no-zoom'))
     .on('zoom', (d) => { g.attr('transform', d3.event.transform); });
 
-  const texts = ["The red circles don't allow scroll-wheel zooming and",
-    'drag-based panning'];
+  const texts = [
+    "The red circles don't allow scroll-wheel zooming and",
+    'drag-based panning'
+  ];
   svg.selectAll('text')
     .data(texts)
     .enter()
