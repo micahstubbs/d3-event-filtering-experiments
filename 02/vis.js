@@ -1,16 +1,18 @@
 function zoomFiltering(divId) {
-    var width = 400, height=250, maxR=30;
+    const width = 400;
+    const height=250;
+    const maxR=30;
 
-    var svg = d3.select(divId)
+    const svg = d3.select(divId)
                 .append('svg')
                 .attr('width', width)
-                .attr('height', height)
-    var g = svg.append('g')
+                .attr('height', height);
+    const g = svg.append('g');
 
     // create 15 circles
-    var numCircles = 55;
-    var circles = [];
-    for (var i = 0; i < numCircles; i++)
+    const numCircles = 55;
+    const circles = [];
+    for (let i = 0; i < numCircles; i++)
         circles.push({'x': 1+Math.floor(Math.random() * width),
                 'y': 1+Math.floor(Math.random() * height),
                 'r': 1+Math.floor(Math.random() * maxR)});
@@ -19,24 +21,24 @@ function zoomFiltering(divId) {
         .data(circles)
         .enter()
         .append('circle')
-        .attr('cx', function(d) { return d.x; })
-        .attr('cy', function(d) { return d.y; })
-        .attr('r', function(d) { return d.r; })
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y)
+        .attr('r', d => d.r)
         .classed('no-zoom', true)
 
-    var zoom = d3.zoom()
+    const zoom = d3.zoom()
                  .filter(() => { return !d3.event.path[0].classList.contains('no-zoom') })
-                 .on('zoom', function(d) { g.attr('transform', d3.event.transform); });
+                 .on('zoom', d => { g.attr('transform', d3.event.transform); });
 
-     var texts = ["The red circles don't allow scroll-wheel zooming and",
-                  "drag-based panning"]
-     svg.selectAll('text')
-        .data(texts)
-        .enter()
-        .append('text')
-        .attr('x', 200)
-        .attr('y', function(d,i) { return 20 + i * 20; })
-        .text(function(d) { return d; });
+    const texts = ["The red circles don't allow scroll-wheel zooming and",
+                 "drag-based panning"];
+    svg.selectAll('text')
+       .data(texts)
+       .enter()
+       .append('text')
+       .attr('x', 200)
+       .attr('y', (d, i) => 20 + i * 20)
+       .text(d => d);
 
     svg.call(zoom);
 }
